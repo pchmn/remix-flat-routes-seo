@@ -1,0 +1,16 @@
+diff --git a/dist/index.js b/dist/index.js
+index 3263194b97daf25be22e5fbc9b599e997502bb01..53a83ac87b7d05e6cbed65f4d05c311d36702713 100644
+--- a/dist/index.js
++++ b/dist/index.js
+@@ -228,7 +228,10 @@ function findParentRouteId(routeInfo, nameMap) {
+     let parentName = routeInfo.segments.slice(0, -1).join('/');
+     while (parentName) {
+         if (nameMap.has(parentName)) {
+-            return nameMap.get(parentName).id;
++            const parentRoute = nameMap.get(parentName);
++            if (parentRoute.path !== undefined) {
++                return parentRoute.id;
++            }
+         }
+         parentName = parentName.substring(0, parentName.lastIndexOf('/'));
+     }
